@@ -7,6 +7,7 @@ const products = [
     categoryId: 'c2',
     price: 17.9,
     sizes: ['XS', 'S'],
+    rating: 5,
     imageIds: ['1a', '1b', '1c'],
   },
   {
@@ -17,6 +18,7 @@ const products = [
     categoryId: 'c2',
     price: 59,
     sizes: ['S', 'M', 'L'],
+    rating: 5,
     imageIds: ['2a', '2b', '2c'],
   },
   {
@@ -27,6 +29,7 @@ const products = [
     categoryId: 'c2',
     price: 160.9,
     sizes: ['M', 'L', 'XL'],
+    rating: 5,
     imageIds: ['3a', '3b', '3c'],
   },
   {
@@ -36,6 +39,7 @@ const products = [
     categoryId: 'c2',
     price: 29.4,
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    rating: 4.5,
     imageIds: ['4a', '4b', '4c'],
   },
   {
@@ -46,6 +50,7 @@ const products = [
     categoryId: 'c2',
     price: 22.9,
     sizes: ['S'],
+    rating: 4.5,
     imageIds: ['5a', '5b', '5c'],
   },
   {
@@ -56,6 +61,7 @@ const products = [
     categoryId: 'c2',
     price: 20.9,
     sizes: ['M', 'L'],
+    rating: 4.5,
     imageIds: ['6a', '6b', '6c'],
   },
   {
@@ -65,6 +71,7 @@ const products = [
     categoryId: 'c2',
     price: 29.9,
     sizes: ['XL'],
+    rating: 4.5,
     imageIds: ['7a', '7b', '7c'],
   },
   {
@@ -75,6 +82,7 @@ const products = [
     categoryId: 'c2',
     price: 25.9,
     sizes: ['S', 'M', 'L', 'XL'],
+    rating: 5,
     imageIds: ['8a', '8b', '8c'],
   },
   {
@@ -84,6 +92,7 @@ const products = [
     categoryId: 'c2',
     price: 29.9,
     sizes: ['XS', 'S', 'M'],
+    rating: 4.5,
     imageIds: ['9a', '9b', '9c'],
   },
   {
@@ -93,6 +102,7 @@ const products = [
     categoryId: 'c2',
     price: 90.9,
     sizes: ['XS', 'S', 'M', 'L'],
+    rating: 4.5,
     imageIds: ['10a', '10b', '10c'],
   },
   {
@@ -102,6 +112,7 @@ const products = [
     categoryId: 'c2',
     price: 73.9,
     sizes: ['M', 'L', 'XL'],
+    rating: 4,
     imageIds: ['11a', '11b', '11c'],
   },
   {
@@ -111,6 +122,7 @@ const products = [
     categoryId: 'c2',
     price: 66.9,
     sizes: ['XS', 'S'],
+    rating: 4.5,
     imageIds: ['12a', '12b', '12c'],
   },
   {
@@ -120,6 +132,7 @@ const products = [
     categoryId: 'c1',
     price: 110.9,
     sizes: ['S', 'M', 'L'],
+    rating: 4.5,
     imageIds: ['13a', '13b', '13c'],
   },
   {
@@ -130,6 +143,7 @@ const products = [
     categoryId: 'c1',
     price: 15.6,
     sizes: ['XS'],
+    rating: 4.5,
     imageIds: ['14a', '14b', '14c'],
   },
   {
@@ -139,6 +153,7 @@ const products = [
     categoryId: 'c1',
     price: 26.9,
     sizes: ['L', 'XL'],
+    rating: 4.5,
     imageIds: ['15a', '15b', '15c'],
   },
   {
@@ -149,6 +164,7 @@ const products = [
     categoryId: 'c1',
     price: 36.9,
     sizes: ['M', 'L'],
+    rating: 4.5,
     imageIds: ['16a', '16b', '16c'],
   },
   {
@@ -159,6 +175,7 @@ const products = [
     categoryId: 'c1',
     price: 107.9,
     sizes: ['XS', 'S', 'M', 'L'],
+    rating: 4.5,
     imageIds: ['17a', '17b', '17c'],
   },
   {
@@ -169,6 +186,7 @@ const products = [
     categoryId: 'c1',
     price: 54.0,
     sizes: ['S', 'M'],
+    rating: 4.5,
     imageIds: ['18a', '18b', '18c'],
   },
   {
@@ -179,6 +197,7 @@ const products = [
     categoryId: 'c1',
     price: 63.9,
     sizes: ['L'],
+    rating: 4,
     imageIds: ['19a', '19b', '19c'],
   },
   {
@@ -188,6 +207,7 @@ const products = [
     categoryId: 'c1',
     price: 142.9,
     sizes: ['L', 'XL'],
+    rating: 4.5,
     imageIds: ['20a', '20b', '20c'],
   },
   {
@@ -198,6 +218,7 @@ const products = [
     categoryId: 'c1',
     price: 34.9,
     sizes: ['XS', 'S'],
+    rating: 4.5,
     imageIds: ['21a', '21b', '21c'],
   },
   {
@@ -208,6 +229,7 @@ const products = [
     categoryId: 'c1',
     price: 214.9,
     sizes: ['XS', 'S', 'M'],
+    rating: 4.5,
     imageIds: ['22a', '22b', '22c'],
   },
   {
@@ -218,6 +240,7 @@ const products = [
     categoryId: 'c1',
     price: 36.9,
     sizes: ['S', 'M', 'L'],
+    rating: 4.5,
     imageIds: ['23a', '23b', '23c'],
   },
   {
@@ -228,6 +251,7 @@ const products = [
     categoryId: 'c1',
     price: 245.9,
     sizes: ['XS', 'S', 'M', 'L'],
+    rating: 4.5,
     imageIds: ['24a', '24b', '24c'],
   },
   {
@@ -238,6 +262,7 @@ const products = [
     categoryId: 'c3',
     price: 245.0,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['25a', '25b', '25c'],
   },
   {
@@ -248,6 +273,7 @@ const products = [
     categoryId: 'c3',
     price: 179.0,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['26a', '26b', '26c'],
   },
   {
@@ -257,6 +283,7 @@ const products = [
     categoryId: 'c3',
     price: 70.0,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['27a', '27b', '27c'],
   },
   {
@@ -267,6 +294,7 @@ const products = [
     categoryId: 'c3',
     price: 38.95,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['28a', '28b', '28c'],
   },
   {
@@ -276,6 +304,7 @@ const products = [
     categoryId: 'c3',
     price: 155,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['29a', '29b', '29c'],
   },
   {
@@ -285,6 +314,7 @@ const products = [
     categoryId: 'c3',
     price: 199,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['30a', '30b', '30c'],
   },
   {
@@ -294,6 +324,7 @@ const products = [
     categoryId: 'c3',
     price: 109,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['31a', '31b', '31c'],
   },
   {
@@ -304,6 +335,7 @@ const products = [
     categoryId: 'c3',
     price: 359,
     sizes: ['M'],
+    rating: 4.5,
     imageIds: ['32a', '32b', '32c'],
   },
 ];
