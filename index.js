@@ -104,27 +104,27 @@ const resolvers = {
       let filteredProducts = products;
 
       if (categoryId) {
-        filteredProducts = products.filter(
+        filteredProducts = filteredProducts.filter(
           (product) => product.categoryId === categoryId,
         );
       }
 
       if (colors) {
         let colorSet = new Set(colors);
-        filteredProducts = products.filter((product) =>
+        filteredProducts = filteredProducts.filter((product) =>
           product.colors.some((color) => colorSet.has(color)),
         );
       }
 
       if (priceRange) {
         if (priceRange.min) {
-          filteredProducts = products.filter(
+          filteredProducts = filteredProducts.filter(
             (product) => product.price >= priceRange.min,
           );
         }
 
         if (priceRange.max) {
-          filteredProducts = products.filter(
+          filteredProducts = filteredProducts.filter(
             (product) => product.price <= priceRange.max,
           );
         }
