@@ -22,11 +22,12 @@ const carts = {};
 const orders = {};
 
 const typeDefs = gql`
-  enum Color {
-    Black
-    Pink
-    White
-    Orange
+  enum Size {
+    XS
+    S
+    M
+    L
+    XL
   }
 
   input PriceRange {
@@ -67,7 +68,7 @@ const typeDefs = gql`
     rating: Float
     category: Category
     price: Int
-    colors: [Color]
+    sizes: [Size]
     images: [Image!]!
   }
 
@@ -88,7 +89,7 @@ const typeDefs = gql`
   type Query {
     products(
       categoryId: ID
-      colors: [Color!]
+      sizes: [Size!]
       priceRange: PriceRange
       pagination: Pagination
       sort: Sort
@@ -126,7 +127,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    products: (_parent, {categoryId, colors, priceRange, pagination, sort}) => {
+    products: (_parent, {categoryId, sizes, priceRange, pagination, sort}) => {
       let filteredProducts = products;
 
       if (categoryId) {
@@ -135,10 +136,10 @@ const resolvers = {
         );
       }
 
-      if (colors) {
-        let colorSet = new Set(colors);
+      if (sizes) {
+        let sizeset = new Set(sizes);
         filteredProducts = filteredProducts.filter((product) =>
-          product.colors.some((color) => colorSet.has(color)),
+          product.sizes.some((size) => sizeset.has(size)),
         );
       }
 
