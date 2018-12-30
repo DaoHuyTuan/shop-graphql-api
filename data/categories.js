@@ -1,11 +1,15 @@
 const categories = {
-  cat1: {
-    id: 'cat1',
-    name: 'Cat 1',
+  c1: {
+    id: 'c1',
+    name: 'Men',
   },
-  cat2: {
-    id: 'cat2',
-    name: 'Cat 2',
+  c2: {
+    id: 'c2',
+    name: 'Women',
+  },
+  c3: {
+    id: 'c3',
+    name: 'Accessories',
   },
 };
 exports.categories = categories;

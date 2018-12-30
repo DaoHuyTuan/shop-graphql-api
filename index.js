@@ -1,7 +1,22 @@
+const jwt = require('jsonwebtoken');
 const {ApolloServer, gql} = require('apollo-server');
 const {images} = require('./data/images');
 const {categories} = require('./data/categories');
 const {products} = require('./data/products');
+
+const secretKey = 'secret';
+
+const createToken = (payload = {}) => {
+  return jwt.sign(payload, secretKey);
+};
+
+const readToken = (token) => {
+  try {
+    return jwt.verify(token, secretKey);
+  } catch (_error) {
+    return null;
+  }
+};
 
 const carts = {};
 const orders = {};
@@ -92,9 +107,20 @@ const typeDefs = gql`
     userErrors: [UserError!]!
   }
 
+  type Token {
+    expiredAt: String!
+    token: String!
+  }
+
+  type LoginPayload {
+    success: Boolean!
+    token: Token
+  }
+
   type Mutation {
     putCart(productId: ID!, quantity: Int!): APIResponse
     checkout: APIResponse
+    login(userId: String!, password: String!): LoginPayload
   }
 `;
 
@@ -174,6 +200,25 @@ const resolvers = {
   },
 
   Mutation: {
+    login: (_root, {userId, password}) => {
+      if (password === 'password') {
+        const expiredAt = new Date(
+          new Date().getTime() + 24 * 60 * 60 * 1000,
+        ).toISOString();
+        const token = createToken({userId, expiredAt});
+        return {
+          success: true,
+          token: {
+            token,
+            expiredAt,
+          },
+        };
+      }
+
+      return {
+        success: false,
+      };
+    },
     putCart(_root, {productId, quantity}, {userId}) {
       if (userId === UNAUTHORIZED_ID) {
         return {
@@ -259,9 +304,21 @@ const UNAUTHORIZED_ID = 'unauthorized';
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({req}) => ({
-    userId: req.headers.authorization || UNAUTHORIZED_ID,
-  }),
+  context: ({req}) => {
+    const authorization = req.headers.authorization;
+    if (/^Bearer/.test(authorization)) {
+      const token = authorization.split(' ')[1];
+      return (
+        readToken(token) || {
+          userId: UNAUTHORIZED_ID,
+        }
+      );
+    }
+
+    return {
+      userId: req.headers.authorization || UNAUTHORIZED_ID,
+    };
+  },
   // mocks: true,
   introspection: true,
   playground: true,
