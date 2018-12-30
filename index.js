@@ -67,7 +67,7 @@ const typeDefs = gql`
     description: String!
     rating: Float
     category: Category
-    price: Int
+    price: Float
     sizes: [Size]
     images: [Image!]!
   }
@@ -94,6 +94,8 @@ const typeDefs = gql`
       pagination: Pagination
       sort: Sort
     ): [Product]
+
+    categories: [Category]!
 
     cart: Cart!
   }
@@ -127,6 +129,13 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
+    categories: () => {
+      let res = [];
+      for (let cat in categories) {
+        res.push(categories[cat]);
+      }
+      return res;
+    },
     products: (_parent, {categoryId, sizes, priceRange, pagination, sort}) => {
       let filteredProducts = products;
 
