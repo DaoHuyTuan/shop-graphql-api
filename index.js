@@ -86,6 +86,12 @@ const typeDefs = gql`
     items: [CartItem!]!
   }
 
+  type Order {
+    items: [CartItem!]!
+    orderTotal: Int!
+    checkoutedAt: String!
+  }
+
   type Query {
     products(
       categoryId: ID
@@ -100,6 +106,7 @@ const typeDefs = gql`
     categories: [Category]!
 
     cart: Cart!
+    orders: [Order!]!
   }
 
   type UserError {
@@ -198,6 +205,14 @@ const resolvers = {
 
       console.log('carts', carts);
       return carts[userId] || {items: []};
+    },
+    orders: (_parent, _args, {userId}) => {
+      if (userId === UNAUTHORIZED_ID) {
+        return [];
+      }
+
+      console.log('orders', orders[userId]);
+      return orders[userId];
     },
   },
 
@@ -299,7 +314,14 @@ const resolvers = {
         };
       }
 
-      orders[userId] = carts[userId];
+      orders[userId] = orders[userId] || [];
+      const newOrder = carts[userId];
+
+      newOrder.orderTotal = newOrder.items
+        .map((item) => item.price === item.quantity)
+        .reduce((a, b) => a + b, 0);
+      newOrder.checkoutedAt = new Date().toISOString();
+      orders[userId].push(carts[userId]);
       carts[userId] = null;
 
       return {
