@@ -95,6 +95,8 @@ const typeDefs = gql`
       sort: Sort
     ): [Product]
 
+    product(productId: ID): Product
+
     categories: [Category]!
 
     cart: Cart!
@@ -186,6 +188,9 @@ const resolvers = {
 
       return filteredProducts.slice(page * perpage, (page + 1) * perpage);
     },
+    product: (_parent, {productId}) => {
+      return products.find((product) => product.id === productId);
+    },
     cart: (_parent, _args, {userId}) => {
       if (userId === UNAUTHORIZED_ID) {
         return {items: []};
@@ -198,7 +203,6 @@ const resolvers = {
 
   CartItem: {
     product: ({productId}) => {
-      console.log('hehre');
       return products.find((product) => product.id === productId);
     },
   },
