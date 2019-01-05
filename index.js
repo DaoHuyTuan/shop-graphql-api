@@ -132,6 +132,7 @@ const typeDefs = gql`
   type Mutation {
     putCart(productId: ID!, quantity: Int!): APIResponse
     checkout: APIResponse
+    clearCart: APIResponse
     login(userId: String!, password: String!): LoginPayload
   }
 `;
@@ -260,6 +261,64 @@ const resolvers = {
         };
       }
 
+      if (quantity < 0) {
+        return {
+          success: false,
+          userErrors: [
+            {
+              field: 'quantity',
+              message: 'Quantity must be non-negative!',
+            },
+          ],
+        };
+      }
+
+      const userCart = carts[userId] || {items: []};
+      carts[userId] = userCart;
+      let added = false;
+
+      userCart.items = userCart.items
+        .map((cartItem) => {
+          if (cartItem.productId === productId) {
+            added = true;
+            if (quantity > 0) {
+              return {
+                productId,
+                quantity,
+              };
+            }
+            return null;
+          }
+
+          return cartItem;
+        })
+        .filter(Boolean);
+
+      if (!added && quantity > 0) {
+        userCart.items.push({
+          productId,
+          quantity,
+        });
+      }
+
+      return {
+        success: true,
+        userErrors: [],
+      };
+    },
+
+    clearCart(_root, {productId, quantity}, {userId}) {
+      if (userId === UNAUTHORIZED_ID) {
+        return {
+          success: false,
+          userErrors: [
+            {
+              message: 'Please use authorization header to call API!',
+            },
+          ],
+        };
+      }
+
       if (quantity <= 0) {
         return {
           success: false,
@@ -274,26 +333,8 @@ const resolvers = {
 
       const userCart = carts[userId] || {items: []};
       carts[userId] = userCart;
-      let added = false;
 
-      userCart.items = userCart.items.map((cartItem) => {
-        if (cartItem.productId === productId) {
-          added = true;
-          return {
-            productId,
-            quantity,
-          };
-        }
-
-        return cartItem;
-      });
-
-      if (!added) {
-        userCart.items.push({
-          productId,
-          quantity,
-        });
-      }
+      userCart.items = [];
 
       return {
         success: true,
