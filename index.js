@@ -94,6 +94,7 @@ const typeDefs = gql`
 
   type Query {
     products(
+      productName:String
       categoryId: ID
       sizes: [Size!]
       priceRange: PriceRange
@@ -101,7 +102,7 @@ const typeDefs = gql`
       sort: Sort
     ): [Product]
 
-    product(productId: ID): Product
+    product(productId: ID,productName:String): Product
 
     categories: [Category]!
 
@@ -146,9 +147,13 @@ const resolvers = {
       }
       return res;
     },
-    products: (_parent, {categoryId, sizes, priceRange, pagination, sort}) => {
+    products: (_parent, {productName,categoryId, sizes, priceRange, pagination, sort}) => {
       let filteredProducts = products;
-
+      if (productName) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.name.includes(productName),
+        );
+      }
       if (categoryId) {
         filteredProducts = filteredProducts.filter(
           (product) => product.categoryId === categoryId,
@@ -196,8 +201,11 @@ const resolvers = {
 
       return filteredProducts.slice(page * perpage, (page + 1) * perpage);
     },
-    product: (_parent, {productId}) => {
-      return products.find((product) => product.id === productId);
+    product: (_parent, {productId,productName}) => {
+        if(productId) {
+          return products.find((product) => product.id === productId)
+        };
+        
     },
     cart: (_parent, _args, {userId}) => {
       if (userId === UNAUTHORIZED_ID) {
